@@ -1,0 +1,49 @@
+{
+    "name": "pl_retail_etl_main",
+    "objectId": "cd99d889-9847-48cf-85d1-172792cefc1b",
+    "properties": {
+        "activities": [
+            {
+                "name": "Run_Bronze_to_Silver",
+                "type": "TridentNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "da67e91d-6482-4e0d-9dd7-7e2969715643",
+                    "workspaceId": "6eacc25d-b3b1-494e-81f9-dcff6f48ff1c"
+                }
+            },
+            {
+                "name": "Run_Silver_to_Gold",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Run_Bronze_to_Silver",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "23c83938-4ac3-4442-a268-08094e8bcdaa",
+                    "workspaceId": "6eacc25d-b3b1-494e-81f9-dcff6f48ff1c"
+                }
+            }
+        ],
+        "lastModifiedByObjectId": "c4d91494-3b63-4113-89cd-358e92141e24",
+        "lastPublishTime": "2026-03-13T16:18:42Z"
+    }
+}
